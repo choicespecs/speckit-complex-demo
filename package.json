@@ -1,0 +1,13 @@
+{
+  "name": "task-board-core",
+  "version": "1.0.0",
+  "description": "Spec-kit team demo: a Task Board API built by a team of 3 across concurrent branches.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

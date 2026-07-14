@@ -11,8 +11,8 @@ Production principle. `quickstart.md` is the verification method instead.
 
 ## Phase 1: Setup
 
-- [ ] T001 Create project structure (`src/`, `src/routes/`) per plan.md
-- [ ] T002 Initialize Node.js project with Express dependency in `package.json`
+- [X] T001 Create project structure (`src/`, `src/routes/`) per plan.md
+- [X] T002 Initialize Node.js project with Express dependency in `package.json`
 
 ---
 
@@ -20,9 +20,9 @@ Production principle. `quickstart.md` is the verification method instead.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T003 Implement `Board` and `Task` in-memory collections in `src/store.js`
+- [X] T003 Implement `Board` and `Task` in-memory collections in `src/store.js`
       (FR-001–FR-008 data shape, per data-model.md)
-- [ ] T004 Wire Express app and mount routers in `src/server.js`, listening on
+- [X] T004 Wire Express app and mount routers in `src/server.js`, listening on
       port 3000
 
 **Checkpoint**: Foundation ready — user story implementation can now begin.
@@ -38,11 +38,11 @@ listing that board's tasks.
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Implement `POST /boards` in `src/routes/boards.js` (FR-001)
-- [ ] T006 [US1] Implement `GET /boards` in `src/routes/boards.js` (FR-002)
-- [ ] T007 [US1] Implement `POST /boards/:boardId/tasks` in `src/routes/tasks.js`,
+- [X] T005 [US1] Implement `POST /boards` in `src/routes/boards.js` (FR-001)
+- [X] T006 [US1] Implement `GET /boards` in `src/routes/boards.js` (FR-002)
+- [X] T007 [US1] Implement `POST /boards/:boardId/tasks` in `src/routes/tasks.js`,
       rejecting unknown `boardId` (FR-003, FR-004)
-- [ ] T008 [US1] Add 400 validation for empty `name`/`description` in
+- [X] T008 [US1] Add 400 validation for empty `name`/`description` in
       `src/routes/boards.js` and `src/routes/tasks.js`
 
 **Checkpoint**: User Story 1 fully functional and testable independently.
@@ -58,9 +58,9 @@ task list reflects the done state and no other board's tasks leak in.
 
 ### Implementation for User Story 2
 
-- [ ] T009 [US2] Implement `GET /boards/:boardId/tasks` in `src/routes/tasks.js`,
+- [X] T009 [US2] Implement `GET /boards/:boardId/tasks` in `src/routes/tasks.js`,
       scoped strictly to that board (FR-005)
-- [ ] T010 [US2] Implement `POST /tasks/:id/done` in `src/routes/tasks.js`,
+- [X] T010 [US2] Implement `POST /tasks/:id/done` in `src/routes/tasks.js`,
       idempotent (FR-006)
 
 **Checkpoint**: User Stories 1 AND 2 both work independently.
@@ -76,8 +76,8 @@ separately, delete a board and confirm its tasks are gone too.
 
 ### Implementation for User Story 3
 
-- [ ] T011 [US3] Implement `DELETE /tasks/:id` in `src/routes/tasks.js` (FR-007)
-- [ ] T012 [US3] Implement `DELETE /boards/:id` in `src/routes/boards.js`,
+- [X] T011 [US3] Implement `DELETE /tasks/:id` in `src/routes/tasks.js` (FR-007)
+- [X] T012 [US3] Implement `DELETE /boards/:id` in `src/routes/boards.js`,
       cascading to delete that board's tasks in `src/store.js` (FR-008)
 
 **Checkpoint**: All three user stories independently functional.
@@ -86,9 +86,9 @@ separately, delete a board and confirm its tasks are gone too.
 
 ## Phase 6: Polish
 
-- [ ] T013 Run every scenario in `quickstart.md` against the running server and
+- [X] T013 Run every scenario in `quickstart.md` against the running server and
       confirm actual responses match documented ones
-- [ ] T014 Confirm every route handler comments its FR-### per the constitution's
+- [X] T014 Confirm every route handler comments its FR-### per the constitution's
       Traceability principle
 
 ---
