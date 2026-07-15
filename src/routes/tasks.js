@@ -4,6 +4,7 @@ const store = require('../store');
 const router = express.Router();
 
 // FR-003, FR-004
+// FR-106, FR-107: Authorization header is optional; anonymous creation is unchanged
 router.post('/boards/:boardId/tasks', (req, res) => {
   const boardId = Number(req.params.boardId);
   if (!store.getBoard(boardId)) {
@@ -13,7 +14,10 @@ router.post('/boards/:boardId/tasks', (req, res) => {
   if (!description || typeof description !== 'string') {
     return res.status(400).json({ error: 'description is required' });
   }
-  const task = store.createTask(boardId, description);
+  const authHeader = req.header('Authorization') || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  const ownerId = token ? store.getUserIdForToken(token) ?? null : null;
+  const task = store.createTask(boardId, description, ownerId);
   res.status(201).json(task);
 });
 

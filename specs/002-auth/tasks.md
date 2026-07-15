@@ -10,14 +10,14 @@
 
 ## Phase 1: Setup
 
-- [ ] T101 No new dependencies needed — confirm `crypto` (Node built-in) is
+- [X] T101 No new dependencies needed — confirm `crypto` (Node built-in) is
       available, no `package.json` changes required
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T102 Add `users` Map and `tokens` Map, plus `ownerId` field on Task
+- [X] T102 Add `users` Map and `tokens` Map, plus `ownerId` field on Task
       creation, in `src/store.js`
 
 **Checkpoint**: Foundation ready — user story implementation can begin.
@@ -31,9 +31,9 @@
 **Independent Test**: Register a user, confirm response has id/username, never
 password.
 
-- [ ] T103 [US1] Create `src/routes/auth.js` with `POST /auth/register`
+- [X] T103 [US1] Create `src/routes/auth.js` with `POST /auth/register`
       (FR-101, FR-102, FR-103)
-- [ ] T104 [US1] Hash passwords with `crypto.createHash('sha256')` before
+- [X] T104 [US1] Hash passwords with `crypto.createHash('sha256')` before
       storing in `src/store.js` (FR-101)
 
 **Checkpoint**: US1 functional and testable independently.
@@ -44,7 +44,7 @@ password.
 
 **Goal**: A registered user logs in and gets a token.
 
-- [ ] T105 [US2] Implement `POST /auth/login` in `src/routes/auth.js`
+- [X] T105 [US2] Implement `POST /auth/login` in `src/routes/auth.js`
       (FR-104, FR-105)
 
 **Checkpoint**: US1 and US2 both work independently.
@@ -56,10 +56,10 @@ password.
 **Goal**: A logged-in user's created tasks carry their `ownerId`; anonymous
 creation is unaffected.
 
-- [ ] T106 [US3] Extend `POST /boards/:boardId/tasks` in `src/routes/tasks.js`
+- [X] T106 [US3] Extend `POST /boards/:boardId/tasks` in `src/routes/tasks.js`
       to read an optional `Authorization: Bearer <token>` header and set
       `ownerId` (FR-106, FR-107)
-- [ ] T107 [US3] Mount `src/routes/auth.js` in `src/server.js`
+- [X] T107 [US3] Mount `src/routes/auth.js` in `src/server.js`
 
 **Checkpoint**: All three user stories independently functional.
 
@@ -67,8 +67,8 @@ creation is unaffected.
 
 ## Phase 6: Polish
 
-- [ ] T108 Run every scenario in `quickstart.md` against a live server
-- [ ] T109 Confirm every route handler comments its FR-1## per the constitution's
+- [X] T108 Run every scenario in `quickstart.md` against a live server
+- [X] T109 Confirm every route handler comments its FR-1## per the constitution's
       Traceability principle
 
 ---
