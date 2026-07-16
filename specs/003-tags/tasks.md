@@ -10,13 +10,13 @@
 
 ## Phase 1: Setup
 
-- [ ] T201 No new dependencies needed
+- [X] T201 No new dependencies needed
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T202 Add `tags` array field (defaulting to `[]`) to Task creation in
+- [X] T202 Add `tags` array field (defaulting to `[]`) to Task creation in
       `src/store.js`
 
 **Checkpoint**: Foundation ready — user story implementation can begin.
@@ -27,7 +27,7 @@
 
 **Goal**: Tags can be specified at task creation.
 
-- [ ] T203 [US1] Extend `POST /boards/:boardId/tasks` in
+- [X] T203 [US1] Extend `POST /boards/:boardId/tasks` in
       `src/routes/tasks.js` to accept an optional `tags` array (FR-201, FR-202)
 
 **Checkpoint**: US1 functional and testable independently.
@@ -38,9 +38,9 @@
 
 **Goal**: A board's tasks can be filtered by tag.
 
-- [ ] T204 [US2] Add `listTasksForBoard` tag-filtering support in
+- [X] T204 [US2] Add `listTasksForBoard` tag-filtering support in
       `src/store.js` (FR-203)
-- [ ] T205 [US2] Read the `?tag=` query parameter in
+- [X] T205 [US2] Read the `?tag=` query parameter in
       `GET /boards/:boardId/tasks` in `src/routes/tasks.js` (FR-203)
 
 **Checkpoint**: US1 and US2 both work independently.
@@ -51,9 +51,9 @@
 
 **Goal**: A tag can be added to an already-created task.
 
-- [ ] T206 [US3] Add an `addTagToTask` function in `src/store.js`, idempotent
+- [X] T206 [US3] Add an `addTagToTask` function in `src/store.js`, idempotent
       (FR-204)
-- [ ] T207 [US3] Implement `POST /tasks/:id/tags` in `src/routes/tasks.js`
+- [X] T207 [US3] Implement `POST /tasks/:id/tags` in `src/routes/tasks.js`
       (FR-204)
 
 **Checkpoint**: All three user stories independently functional.
@@ -62,8 +62,8 @@
 
 ## Phase 6: Polish
 
-- [ ] T208 Run every scenario in `quickstart.md` against a live server
-- [ ] T209 Confirm every route handler comments its FR-2## per the constitution's
+- [X] T208 Run every scenario in `quickstart.md` against a live server
+- [X] T209 Confirm every route handler comments its FR-2## per the constitution's
       Traceability principle
 
 ---
