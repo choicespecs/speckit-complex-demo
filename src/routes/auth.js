@@ -3,9 +3,11 @@ const store = require('../store');
 
 const router = express.Router();
 
-// FR-101, FR-102, FR-103
+// FR-101, FR-102
+// FR-103 (amended, constitution v1.1.0 Principle V): welcome notification is
+// opt-in, default false — see specs/002-auth/spec.md Amendment Review
 router.post('/register', (req, res) => {
-  const { username, password } = req.body || {};
+  const { username, password, notifyOnSignup } = req.body || {};
   if (!username || !password) {
     return res.status(400).json({ error: 'username and password are required' });
   }
@@ -13,9 +15,9 @@ router.post('/register', (req, res) => {
   if (!user) {
     return res.status(409).json({ error: 'username already registered' });
   }
-  // FR-103: welcome notification — currently unconditional, will become
-  // opt-in once the notifications-are-opt-in constitution principle lands.
-  console.log(`[notification] welcome, ${user.username}!`);
+  if (notifyOnSignup === true) {
+    console.log(`[notification] welcome, ${user.username}!`);
+  }
   res.status(201).json({ id: user.id, username: user.username, createdAt: user.createdAt });
 });
 

@@ -75,7 +75,7 @@ creation is unaffected.
 
 ## Phase 7: Amendment Follow-up (constitution v1.1.0)
 
-- [ ] T110 [US1] Make the FR-103 welcome notification opt-in: accept an
+- [X] T110 [US1] Make the FR-103 welcome notification opt-in: accept an
       optional `notifyOnSignup` boolean in `POST /auth/register`, default
       `false`, in `src/routes/auth.js`
 
