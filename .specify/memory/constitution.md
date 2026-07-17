@@ -1,17 +1,26 @@
 <!--
 Sync Impact Report
-- Version change: [none] → 1.0.0 (initial ratification)
-- Modified principles: n/a (initial ratification)
-- Added sections: Core Principles (I–IV), Repository Layout, Team Workflow, Governance
+- Version change: 1.0.0 → 1.1.0
+- Modified principles: none renamed
+- Added principles: V. Notifications Are Opt-In, Never Silent
+- Added sections: none
 - Removed sections: none
+- Rationale for this amendment: while designing 004-reminders, the natural
+  implementation is a background process that pushes reminder notifications to
+  users. Nothing in v1.0.0 constrained how/whether background notification
+  behavior should be surfaced to the user, and 002-auth's already-shipped
+  welcome notification (FR-103) turns out to be exactly this kind of silent
+  background side-effect. Rather than let Reminders set an implicit precedent,
+  the team is naming the rule explicitly before Reminders' spec is written.
+- Already-in-flight specs reviewed for impact as a result of this amendment:
+  - ⚠ specs/002-auth/spec.md (FR-103 welcome notification) — REVIEW REQUIRED,
+    already implemented as an unconditional side-effect; see Amendment Review
+    addendum to be added to that spec.
+  - ✅ specs/003-tags/spec.md — reviewed, no notification-related requirements,
+    no action needed.
 - Templates requiring updates:
-  - ✅ .specify/templates/plan-template.md (Constitution Check gate references generic principles; no changes needed yet)
-  - ✅ .specify/templates/spec-template.md (no constitution-specific sections required)
-  - ✅ .specify/templates/tasks-template.md (task ID format already supports FR-/US traceability)
-- Follow-up TODOs:
-  - A fifth principle governing notification/background-job behavior is deliberately deferred.
-    It will be added in a future amendment once the Reminders feature surfaces the need for it —
-    do not add it preemptively.
+  - ✅ .specify/templates/plan-template.md (Constitution Check gate reads principles generically; no changes needed)
+- Follow-up TODOs: none — this amendment fully resolves the deferred TODO from v1.0.0.
 -->
 
 # Task Board Constitution
@@ -57,6 +66,19 @@ Rationale: Traceability is only checkable if IDs exist from the start — retrof
 them later (as this principle itself warns against) defeats the purpose of a demo
 about traceability.
 
+### V. Notifications Are Opt-In, Never Silent
+Any feature that sends a notification to a user — email, push, in-app, or a
+logged stand-in for one — MUST make that notification an explicit, checkable
+opt-in choice made by the user, not an automatic side-effect of another action.
+A signup, a reminder, or any other trigger MUST NOT itself imply consent to be
+notified.
+
+Rationale: This principle exists because a background job (reminders) is easy
+to build as "just send it," and by the time that pattern is normalized it's
+already been used elsewhere (a signup welcome message) without anyone deciding
+that on purpose. Naming the rule explicitly, once, is cheaper than untangling
+implicit notification behavior across several features later.
+
 ## Repository Layout
 
 `main` holds the foundational Core Task Board API only — tasks belonging to boards,
@@ -100,4 +122,4 @@ version current at the time they were last touched; a constitution amendment doe
 not retroactively invalidate untouched artifacts, but does obligate a documented
 review of them.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-23 | **Last Amended**: 2026-07-23
+**Version**: 1.1.0 | **Ratified**: 2026-07-13 | **Last Amended**: 2026-07-17
