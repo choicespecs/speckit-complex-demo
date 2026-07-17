@@ -32,3 +32,5 @@
 ## Notes
 
 - Passed on first draft.
+- 2026-07-17: Reviewed against constitution v1.1.0 (Notifications Are Opt-In).
+  No action needed — this feature has no notification-related requirements.
