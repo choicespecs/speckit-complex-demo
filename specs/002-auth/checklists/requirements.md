@@ -34,3 +34,5 @@
 - Passed on first draft. FR-103 (welcome notification) will turn out to matter
   more than it looks here — see the constitution amendment note added to this
   spec later in the project history.
+- 2026-07-17: FR-103 amended per constitution v1.1.0 (Notifications Are Opt-In).
+  See spec.md's "Amendment Review" section.

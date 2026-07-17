@@ -115,6 +115,25 @@ as it did before this feature existed.
 - **SC-103**: Every task created with a valid token has a correct, non-null
   `ownerId` in the response.
 
+## Amendment Review (added 2026-07-17, constitution v1.1.0)
+
+The constitution was amended to add Principle V, "Notifications Are Opt-In,
+Never Silent," while Jordan was scoping the Reminders feature — and it flags
+this spec directly: FR-103 as originally written and already implemented sends
+a welcome notification unconditionally on registration, exactly the kind of
+silent side-effect the new principle prohibits.
+
+**Resolution**: FR-103 is amended in place (not superseded by a new ID, since
+traceability per Principle IV is about the requirement's identity, not the
+literal first sentence written for it):
+
+- **FR-103** (amended): System MUST send a welcome notification when an account
+  is registered **only if the registering user opted in to it at registration
+  time**. Default, if unspecified, is no notification.
+
+This is a real scope change made *after* T103/T104 were already implemented —
+see the follow-up commit that updates `src/routes/auth.js` to match.
+
 ## Assumptions
 
 - Password storage uses a simple one-way hash, not a production-grade algorithm
