@@ -10,13 +10,13 @@
 
 ## Phase 1: Setup
 
-- [ ] T301 No new dependencies needed
+- [X] T301 No new dependencies needed
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T302 Add `dueDate` (default `null`) and `remindersOptIn` (default
+- [X] T302 Add `dueDate` (default `null`) and `remindersOptIn` (default
       `false`) fields to Task creation in `src/store.js`
 
 **Checkpoint**: Foundation ready — user story implementation can begin.
@@ -25,7 +25,7 @@
 
 ## Phase 3: User Story 1 - Set a due date on a task (Priority: P1) 🎯 MVP
 
-- [ ] T303 [US1] Extend `POST /boards/:boardId/tasks` in
+- [X] T303 [US1] Extend `POST /boards/:boardId/tasks` in
       `src/routes/tasks.js` to accept an optional `dueDate` (FR-301, FR-302)
 
 **Checkpoint**: US1 functional and testable independently.
@@ -34,9 +34,9 @@
 
 ## Phase 4: User Story 2 - Opt in to reminders for a task (Priority: P2)
 
-- [ ] T304 [US2] Add an `optInToReminders` function in `src/store.js`,
+- [X] T304 [US2] Add an `optInToReminders` function in `src/store.js`,
       idempotent (FR-304)
-- [ ] T305 [US2] Implement `POST /tasks/:id/reminders-opt-in` in
+- [X] T305 [US2] Implement `POST /tasks/:id/reminders-opt-in` in
       `src/routes/tasks.js` (FR-304)
 
 **Checkpoint**: US1 and US2 both work independently.
@@ -45,11 +45,11 @@
 
 ## Phase 5: User Story 3 - Check which opted-in tasks are due (Priority: P3)
 
-- [ ] T306 [US3] Add a `checkReminders(withinHours)` function in
+- [X] T306 [US3] Add a `checkReminders(withinHours)` function in
       `src/store.js` that hard-filters on `remindersOptIn === true` AND due
       date within the window (FR-303, FR-305) — this is the constitutional
       gate, not optional filtering logic
-- [ ] T307 [US3] Implement `GET /reminders?withinHours=` in
+- [X] T307 [US3] Implement `GET /reminders?withinHours=` in
       `src/routes/tasks.js` (FR-305)
 
 **Checkpoint**: All three user stories independently functional.
@@ -58,9 +58,9 @@
 
 ## Phase 6: Polish
 
-- [ ] T308 Run every scenario in `quickstart.md` against a live server,
+- [X] T308 Run every scenario in `quickstart.md` against a live server,
       including confirming a non-opted-in but overdue task never appears
-- [ ] T309 Confirm every route handler comments its FR-3## per the
+- [X] T309 Confirm every route handler comments its FR-3## per the
       constitution's Traceability principle, and that T306 explicitly notes
       its Principle V compliance in a code comment
 

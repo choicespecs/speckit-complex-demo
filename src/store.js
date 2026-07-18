@@ -35,12 +35,15 @@ function deleteBoard(id) {
 }
 
 // FR-003, FR-004: caller must check the board exists before calling this
-function createTask(boardId, description) {
+// FR-301, FR-302: dueDate defaults to null when not specified
+function createTask(boardId, description, dueDate = null) {
   const task = {
     id: nextTaskId++,
     boardId,
     description,
     done: false,
+    dueDate,
+    remindersOptIn: false,
     createdAt: new Date().toISOString(),
   };
   tasks.set(task.id, task);
@@ -69,6 +72,28 @@ function deleteTask(id) {
   return tasks.delete(id);
 }
 
+// FR-304: idempotent
+function optInToReminders(id) {
+  const task = tasks.get(id);
+  if (!task) return undefined;
+  task.remindersOptIn = true;
+  return task;
+}
+
+// FR-303, FR-305: this is the ONLY path that can ever surface a reminder —
+// the remindersOptIn check happens here, inside the filter itself, so no
+// caller can accidentally bypass constitution Principle V by forgetting to
+// filter on their end.
+function checkReminders(withinHours) {
+  const now = Date.now();
+  const cutoff = now + withinHours * 60 * 60 * 1000;
+  return Array.from(tasks.values()).filter((t) => {
+    if (!t.remindersOptIn || !t.dueDate) return false;
+    const due = new Date(t.dueDate).getTime();
+    return due >= now && due <= cutoff;
+  });
+}
+
 module.exports = {
   createBoard,
   listBoards,
@@ -79,4 +104,6 @@ module.exports = {
   getTask,
   markTaskDone,
   deleteTask,
+  optInToReminders,
+  checkReminders,
 };
