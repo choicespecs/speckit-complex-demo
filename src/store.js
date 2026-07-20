@@ -2,11 +2,17 @@
 // "State isolated in store.js") so concurrent feature branches can each extend
 // this one module without tangling their changes into route handlers.
 
+const crypto = require('crypto');
+
 let nextBoardId = 1;
 let nextTaskId = 1;
+let nextUserId = 1;
 
 const boards = new Map();
 const tasks = new Map();
+const users = new Map();
+const usersByUsername = new Map();
+const tokens = new Map();
 
 // FR-001
 function createBoard(name) {
@@ -35,12 +41,14 @@ function deleteBoard(id) {
 }
 
 // FR-003, FR-004: caller must check the board exists before calling this
-function createTask(boardId, description) {
+// FR-106, FR-107: ownerId is optional — anonymous creation must keep working
+function createTask(boardId, description, ownerId = null) {
   const task = {
     id: nextTaskId++,
     boardId,
     description,
     done: false,
+    ownerId,
     createdAt: new Date().toISOString(),
   };
   tasks.set(task.id, task);
@@ -69,6 +77,44 @@ function deleteTask(id) {
   return tasks.delete(id);
 }
 
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+// FR-101, FR-102
+function createUser(username, password) {
+  if (usersByUsername.has(username)) return undefined;
+  const user = {
+    id: nextUserId++,
+    username,
+    passwordHash: hashPassword(password),
+    createdAt: new Date().toISOString(),
+  };
+  users.set(user.id, user);
+  usersByUsername.set(username, user);
+  return user;
+}
+
+function findUserByUsername(username) {
+  return usersByUsername.get(username);
+}
+
+// FR-104, FR-105
+function verifyPassword(user, password) {
+  return user.passwordHash === hashPassword(password);
+}
+
+function createToken(userId) {
+  const token = crypto.randomBytes(24).toString('hex');
+  tokens.set(token, userId);
+  return token;
+}
+
+// FR-106: returns undefined for missing/invalid tokens, callers treat that as anonymous
+function getUserIdForToken(token) {
+  return tokens.get(token);
+}
+
 module.exports = {
   createBoard,
   listBoards,
@@ -79,4 +125,9 @@ module.exports = {
   getTask,
   markTaskDone,
   deleteTask,
+  createUser,
+  findUserByUsername,
+  verifyPassword,
+  createToken,
+  getUserIdForToken,
 };
