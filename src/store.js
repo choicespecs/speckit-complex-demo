@@ -42,13 +42,15 @@ function deleteBoard(id) {
 
 // FR-003, FR-004: caller must check the board exists before calling this
 // FR-106, FR-107: ownerId is optional — anonymous creation must keep working
-function createTask(boardId, description, ownerId = null) {
+// FR-201, FR-202: tags defaults to [] when not specified
+function createTask(boardId, description, ownerId = null, tags = []) {
   const task = {
     id: nextTaskId++,
     boardId,
     description,
     done: false,
     ownerId,
+    tags: Array.isArray(tags) ? tags : [],
     createdAt: new Date().toISOString(),
   };
   tasks.set(task.id, task);
@@ -56,8 +58,11 @@ function createTask(boardId, description, ownerId = null) {
 }
 
 // FR-005: scoped strictly to one board
-function listTasksForBoard(boardId) {
-  return Array.from(tasks.values()).filter((t) => t.boardId === boardId);
+// FR-203: optional tag filter
+function listTasksForBoard(boardId, tag) {
+  return Array.from(tasks.values()).filter(
+    (t) => t.boardId === boardId && (!tag || t.tags.includes(tag))
+  );
 }
 
 function getTask(id) {
@@ -75,6 +80,14 @@ function markTaskDone(id) {
 // FR-007
 function deleteTask(id) {
   return tasks.delete(id);
+}
+
+// FR-204: idempotent
+function addTagToTask(id, tag) {
+  const task = tasks.get(id);
+  if (!task) return undefined;
+  if (!task.tags.includes(tag)) task.tags.push(tag);
+  return task;
 }
 
 function hashPassword(password) {
@@ -125,6 +138,7 @@ module.exports = {
   getTask,
   markTaskDone,
   deleteTask,
+  addTagToTask,
   createUser,
   findUserByUsername,
   verifyPassword,
