@@ -43,7 +43,8 @@ function deleteBoard(id) {
 // FR-003, FR-004: caller must check the board exists before calling this
 // FR-106, FR-107: ownerId is optional — anonymous creation must keep working
 // FR-201, FR-202: tags defaults to [] when not specified
-function createTask(boardId, description, ownerId = null, tags = []) {
+// FR-301, FR-302: dueDate defaults to null when not specified
+function createTask(boardId, description, ownerId = null, tags = [], dueDate = null) {
   const task = {
     id: nextTaskId++,
     boardId,
@@ -51,6 +52,8 @@ function createTask(boardId, description, ownerId = null, tags = []) {
     done: false,
     ownerId,
     tags: Array.isArray(tags) ? tags : [],
+    dueDate,
+    remindersOptIn: false,
     createdAt: new Date().toISOString(),
   };
   tasks.set(task.id, task);
@@ -88,6 +91,28 @@ function addTagToTask(id, tag) {
   if (!task) return undefined;
   if (!task.tags.includes(tag)) task.tags.push(tag);
   return task;
+}
+
+// FR-304: idempotent
+function optInToReminders(id) {
+  const task = tasks.get(id);
+  if (!task) return undefined;
+  task.remindersOptIn = true;
+  return task;
+}
+
+// FR-303, FR-305: this is the ONLY path that can ever surface a reminder —
+// the remindersOptIn check happens here, inside the filter itself, so no
+// caller can accidentally bypass constitution Principle V by forgetting to
+// filter on their end.
+function checkReminders(withinHours) {
+  const now = Date.now();
+  const cutoff = now + withinHours * 60 * 60 * 1000;
+  return Array.from(tasks.values()).filter((t) => {
+    if (!t.remindersOptIn || !t.dueDate) return false;
+    const due = new Date(t.dueDate).getTime();
+    return due >= now && due <= cutoff;
+  });
 }
 
 function hashPassword(password) {
@@ -139,6 +164,8 @@ module.exports = {
   markTaskDone,
   deleteTask,
   addTagToTask,
+  optInToReminders,
+  checkReminders,
   createUser,
   findUserByUsername,
   verifyPassword,
