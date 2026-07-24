@@ -62,9 +62,13 @@ function createTask(boardId, description, ownerId = null, tags = [], dueDate = n
 
 // FR-005: scoped strictly to one board
 // FR-203: optional tag filter
+// BUG-233: match case-insensitively — "Urgent" at creation must be found by ?tag=urgent
 function listTasksForBoard(boardId, tag) {
+  const needle = tag ? tag.toLowerCase() : null;
   return Array.from(tasks.values()).filter(
-    (t) => t.boardId === boardId && (!tag || t.tags.includes(tag))
+    (t) =>
+      t.boardId === boardId &&
+      (!needle || t.tags.some((existing) => existing.toLowerCase() === needle))
   );
 }
 
