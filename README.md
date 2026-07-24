@@ -17,6 +17,7 @@ the exact playbook those commands execute), not a hand-simulated diff. See
 
 | Question | Where it's answered |
 |---|---|
+| What does each contributor's terminal actually show — commands, args, output — across concurrent Jira stories *and* a bug fix? | [`docs/sample-session.md`](./docs/sample-session.md) |
 | What happens when two people extend the same shared model concurrently? | [`docs/concurrent-features.md`](./docs/concurrent-features.md) |
 | What happens when project governance (the constitution) changes after some specs already exist? | [`docs/constitution-amendments.md`](./docs/constitution-amendments.md) |
 | What does a spec-kit merge conflict actually look like, and how do you resolve one? | [`docs/merge-conflicts.md`](./docs/merge-conflicts.md) |
@@ -29,14 +30,16 @@ Full index, with what each doc covers and why, in [`docs/README.md`](./docs/READ
 ## The repo, structurally
 
 ```text
-main                  — frozen Core Task Board API + shared constitution
-├── 002-auth          — Priya: user accounts, task ownership
-├── 003-tags          — Marcus: tags, filtering
-└── 004-reminders     — Jordan: due dates, opt-in reminders (written after
-                         the constitution amendment below)
+main                             — frozen Core Task Board API + shared constitution
+├── 002-auth                     — Priya: user accounts, task ownership
+├── 003-tags                     — Marcus: tags, filtering
+├── bugfix/233-tag-filter-case   — Alex: case-insensitive tag filter (merged,
+│                                   no spec-kit artifacts — see below)
+└── 004-reminders                — Jordan: due dates, opt-in reminders (written
+                                    after the constitution amendment below)
 ```
 
-Four things happen across this history that a single-feature demo has no
+Five things happen across this history that a single-feature demo has no
 reason to show:
 
 1. **Two branches built concurrently** from the same frozen base (`002-auth`,
@@ -50,6 +53,10 @@ reason to show:
 4. **A feature written after the amendment** (`004-reminders`) that gets to be
    correct from its first draft, because the principle existed before its
    spec did.
+5. **A bug fix landing concurrently with a feature branch, without any
+   spec-kit ceremony** (`bugfix/233-tag-filter-case`) — the control case
+   showing that concurrency alone doesn't cause conflicts; touching the same
+   shared model does. See [`docs/sample-session.md`](./docs/sample-session.md).
 
 ## Running it
 

@@ -9,6 +9,7 @@ same time.**
 
 | Doc | Covers |
 |---|---|
+| [`sample-session.md`](./sample-session.md) | What each contributor's terminal actually shows — real `/speckit-*` commands, args, and output — across three concurrent Jira stories and one bug fix that skips spec-kit entirely |
 | [`team-workflow.md`](./team-workflow.md) | How branch-per-feature numbering, git identity, and integration order actually worked across three contributors in this repo |
 | [`constitution-amendments.md`](./constitution-amendments.md) | What a mid-project amendment obligates you to do to *already-written* specs — worked from this repo's real `v1.0.0` → `v1.1.0` amendment |
 | [`concurrent-features.md`](./concurrent-features.md) | How spec-kit keeps two people's specs from interfering with each other, and where that isolation *doesn't* reach (shared code) |
